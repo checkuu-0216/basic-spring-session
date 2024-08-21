@@ -3,13 +3,13 @@ package org.example.basicspringsession.dto;
 import lombok.Getter;
 
 @Getter
-public class MemberSaveResponseDto {
+public class MemberDetailResponseDto {
+
     private final Long id;
     private final String name;
 
-    public MemberSaveResponseDto(Long id,String name){
+    public MemberDetailResponseDto(Long id , String name) {
         this.id = id;
         this.name = name;
     }
-
 }

@@ -5,6 +5,7 @@ import org.example.basicspringsession.dto.MemberSaveRequestDto;
 import org.example.basicspringsession.dto.MemberSaveResponseDto;
 import org.example.basicspringsession.dto.MemberSimpleResponseDto;
 import org.example.basicspringsession.service.MemberService;
+import org.example.basicspringsession.dto.MemberDetailResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,11 @@ public class MemberController {
     public ResponseEntity<List<MemberSimpleResponseDto>> getMembers() {
         // 조회하는 컨트롤러 memberService에 조회하는 메서드를 불러와 리턴해준다.
         return ResponseEntity.ok(memberService.getMembers());
+    }
+
+    @GetMapping("/members/{memberId}") //멤버 단건 조회
+    public ResponseEntity<MemberDetailResponseDto> getMember(@PathVariable Long memberId) { //id를 이용해 맞는 이용자를 찾기
+        return ResponseEntity.ok(memberService.getMember(memberId)); //getMember 메서드에 id를 넣어 해당 값 리턴
     }
 
 }
