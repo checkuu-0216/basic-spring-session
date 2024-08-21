@@ -1,10 +1,7 @@
 package org.example.basicspringsession.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.basicspringsession.dto.MemberDetailResponseDto;
-import org.example.basicspringsession.dto.MemberSaveRequestDto;
-import org.example.basicspringsession.dto.MemberSaveResponseDto;
-import org.example.basicspringsession.dto.MemberSimpleResponseDto;
+import org.example.basicspringsession.dto.*;
 import org.example.basicspringsession.entity.Member;
 import org.example.basicspringsession.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -42,5 +39,13 @@ public class MemberService {
         Member member = memberRepository.findById(memberId).orElseThrow(()-> new NullPointerException("해당하는 멤버가 없습니다."));
         //findById를 이용해 repository 에서 해당 id 불러오기 orElseThrow로 예외 처리
         return new MemberDetailResponseDto(member.getId(), member.getName()); //member의 id와name을 넣어서 리턴
+    }
+
+    public MemberUpdateReponseDto updateMember(Long memberId, MemberUpdateRequestDto requestDto) {//멤버 수정으로 위한 메서드
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NullPointerException("해당하는 멤버가 없습니다."));
+
+        member.update(requestDto.getName());
+        //requestDto의 이름을 가져와서 해당하는 id의 멤버의 이름에 넣는다
+        return new MemberUpdateReponseDto(member.getId(),member.getName()); //id와 이름을 리턴한다.
     }
 }

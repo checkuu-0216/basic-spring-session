@@ -1,11 +1,8 @@
 package org.example.basicspringsession.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.basicspringsession.dto.MemberSaveRequestDto;
-import org.example.basicspringsession.dto.MemberSaveResponseDto;
-import org.example.basicspringsession.dto.MemberSimpleResponseDto;
+import org.example.basicspringsession.dto.*;
 import org.example.basicspringsession.service.MemberService;
-import org.example.basicspringsession.dto.MemberDetailResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,4 +31,8 @@ public class MemberController {
         return ResponseEntity.ok(memberService.getMember(memberId)); //getMember 메서드에 id를 넣어 해당 값 리턴
     }
 
+    @PutMapping("/members/{memberId}") //멤버 수정
+    public ResponseEntity<MemberUpdateReponseDto> updateMember(@PathVariable Long memberId, @RequestBody MemberUpdateRequestDto requestDto) {//수정하기 위한 id 값과 완료후 보여주기위한? RequestBody
+        return ResponseEntity.ok(memberService.updateMember(memberId,requestDto));
+    }
 }
