@@ -31,8 +31,13 @@ public class MemberController {
         return ResponseEntity.ok(memberService.getMember(memberId)); //getMember 메서드에 id를 넣어 해당 값 리턴
     }
 
-    @PutMapping("/members/{memberId}") //멤버 수정
+    @PutMapping("/members/{memberId}") //특정 id에 해당하는 멤버 수정
     public ResponseEntity<MemberUpdateReponseDto> updateMember(@PathVariable Long memberId, @RequestBody MemberUpdateRequestDto requestDto) {//수정하기 위한 id 값과 완료후 보여주기위한? RequestBody
         return ResponseEntity.ok(memberService.updateMember(memberId,requestDto));
+    }
+
+    @DeleteMapping("/members/{memberId}") //특정 id에 해당하는 멤버 삭제
+    public void deleteMember(@PathVariable Long memberId) {//요청한 id에 맞는 멤버 지우기 위한 PathVariable
+        memberService.deleteMember(memberId);
     }
 }

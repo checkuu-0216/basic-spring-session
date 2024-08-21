@@ -48,4 +48,9 @@ public class MemberService {
         //requestDto의 이름을 가져와서 해당하는 id의 멤버의 이름에 넣는다
         return new MemberUpdateReponseDto(member.getId(),member.getName()); //id와 이름을 리턴한다.
     }
+
+    public void deleteMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new NullPointerException("해당하는 멤버가 없습니다."));
+        memberRepository.delete(member); //delete는 기본적으로 있는 기능?
+    }
 }
