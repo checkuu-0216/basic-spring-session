@@ -5,6 +5,7 @@ import org.example.basicspringsession.dto.*;
 import org.example.basicspringsession.entity.Member;
 import org.example.basicspringsession.repository.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Transactional
     public MemberSaveResponseDto saveMember(MemberSaveRequestDto requestDto) {
         //멤버 등록 메서드
         Member newMember = new Member(requestDto.getName());  //requestDto에서 받은 이름으로 newMember 만든다
@@ -41,6 +43,7 @@ public class MemberService {
         return new MemberDetailResponseDto(member.getId(), member.getName()); //member의 id와name을 넣어서 리턴
     }
 
+    @Transactional
     public MemberUpdateReponseDto updateMember(Long memberId, MemberUpdateRequestDto requestDto) {//멤버 수정으로 위한 메서드
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new NullPointerException("해당하는 멤버가 없습니다."));
 
@@ -48,7 +51,7 @@ public class MemberService {
         //requestDto의 이름을 가져와서 해당하는 id의 멤버의 이름에 넣는다
         return new MemberUpdateReponseDto(member.getId(),member.getName()); //id와 이름을 리턴한다.
     }
-
+    @Transactional
     public void deleteMember(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new NullPointerException("해당하는 멤버가 없습니다."));
         memberRepository.delete(member); //delete는 기본적으로 있는 기능?
